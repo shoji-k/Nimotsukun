@@ -13,5 +13,9 @@ int main(array<System::String ^> ^args)
 	cout << "Input character is " << c;
 
     Console::WriteLine(L"Hello World");
+
+	while (true) {
+		;
+	}
     return 0;
 }
