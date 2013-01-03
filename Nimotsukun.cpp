@@ -12,11 +12,13 @@ bool draw();
 
 int main(array<System::String ^> ^args)
 {
+	/*
 	char c;
 	cin >> c;
 	cout << "Input character is " << c;
+	*/
 
-    Console::WriteLine(L"Hello World");
+    Console::WriteLine(L"Start Game");
 
 	while (true) {
 		getInput();
