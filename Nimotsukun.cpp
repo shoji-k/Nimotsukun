@@ -6,9 +6,6 @@
 using namespace System;
 using namespace std;
 
-bool getInput();
-bool updateGame();
-
 const char gStateData[] = "\
 ########\n\
 #  .   #\n\
@@ -33,6 +30,8 @@ enum StateObject {
 
 void draw(const StateObject* state, int width, int height);
 void initialize(StateObject* state, int w, int h, const char* StateData);
+char getInput();
+void updateGame(StateObject* s, char input, int w, int h);
 
 int main(array<System::String ^> ^args)
 {
@@ -41,6 +40,7 @@ int main(array<System::String ^> ^args)
 	cin >> c;
 	cout << "Input character is " << c;
 	*/
+	char input;
 
     Console::WriteLine(L"Start Game");
 
@@ -49,8 +49,8 @@ int main(array<System::String ^> ^args)
 
 	while (true) {
 		draw(state, gStateWidth, gStateHeight);
-		getInput();
-		updateGame();
+		input = getInput();
+		updateGame(state, input, gStateWidth, gStateHeight);
 	}
 
 	delete[] state;
@@ -59,16 +59,23 @@ int main(array<System::String ^> ^args)
     return 0;
 }
 
-bool getInput()
+char getInput()
 {
 	char c;
 	cin >> c;
-	return true;
+	return c;
 }
 
-bool updateGame()
+void updateGame(StateObject* s, char input, int w, int h)
 {
-	return true;
+	int dx = 0;
+	int dy = 0;
+	switch ( input ) {
+		case 'a': dx = -1; break; // left
+		case 's': dx =  1; break; // right
+		case 'w': dy =  1; break; // up
+		case 'z': dy = -1; break; // down
+	}
 }
 
 void draw(const StateObject* state, int width, int height)
