@@ -76,6 +76,16 @@ void updateGame(StateObject* s, char input, int w, int h)
 		case 'w': dy =  1; break; // up
 		case 'z': dy = -1; break; // down
 	}
+
+	// find player location
+	int i = 0;
+	for(i=0; i < w * h; ++i) {
+		if(s[i] == OBJ_MAN || s[i] == OBJ_MAN_ON_GOAL) {
+			break;
+		}
+	}
+	int x = i % w;
+	int y = i / w;
 }
 
 void draw(const StateObject* state, int width, int height)
