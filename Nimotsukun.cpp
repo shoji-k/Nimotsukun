@@ -86,6 +86,42 @@ void updateGame(StateObject* s, char input, int w, int h)
 	}
 	int x = i % w;
 	int y = i / w;
+
+	// location after moving
+	int tx = x + dx;
+	int ty = y + dy;
+
+	// check location
+	if(tx < 0 || ty < 0 || tx >= w || ty >= h) {
+		return;
+	}
+
+	// move
+	int p = y*w + x;
+	int tp = ty*w + tx;
+
+	// able to move
+	if(s[tp] == OBJ_SPACE || s[tp] == OBJ_GOAL) {
+		s[tp] = (s[tp] == OBJ_GOAL) ? OBJ_MAN_ON_GOAL : OBJ_MAN;
+		s[p] = (s[p] == OBJ_MAN_ON_GOAL) ? OBJ_GOAL : OBJ_SPACE;
+
+	// find box in front
+	} else if (s[tp] == OBJ_BLOCK || s[tp] ==OBJ_BLOCK_ON_GOAL) {
+		// set two cells ahead
+		int tx2 = tx + dx;
+		int ty2 = ty + dy;
+		// check location
+		if(tx2 < 0 || ty2 < 0 || tx2 >= w || ty2 >= h) {
+			return;
+		}
+		int tp2 = (ty+dy)*w + (tx+dx);
+		if(s[tp2] == OBJ_SPACE || s[tp2] == OBJ_GOAL) {
+			// move block
+			s[tp2] = (s[tp2] == OBJ_GOAL) ? OBJ_BLOCK_ON_GOAL : OBJ_BLOCK;
+			s[tp] = (s[tp] == OBJ_BLOCK_ON_GOAL) ? OBJ_MAN_ON_GOAL : OBJ_MAN;
+			s[p] = (s[p] == OBJ_MAN_ON_GOAL) ? OBJ_GOAL : OBJ_SPACE;
+		}
+	}
 }
 
 void draw(const StateObject* state, int width, int height)
