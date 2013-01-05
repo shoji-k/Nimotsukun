@@ -8,7 +8,7 @@ using namespace std;
 
 const char gStateData[] = "\
 ########\n\
-#  .   #\n\
+#      #\n\
 # o    #\n\
 #   P  #\n\
 ########";
@@ -73,8 +73,8 @@ void updateGame(StateObject* s, char input, int w, int h)
 	switch ( input ) {
 		case 'a': dx = -1; break; // left
 		case 's': dx =  1; break; // right
-		case 'w': dy =  1; break; // up
-		case 'z': dy = -1; break; // down
+		case 'w': dy = -1; break; // up
+		case 'z': dy =  1; break; // down
 	}
 
 	// find player location
