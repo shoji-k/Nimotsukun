@@ -32,6 +32,7 @@ void draw(const StateObject* state, int width, int height);
 void initialize(StateObject* state, int w, int h, const char* StateData);
 char getInput();
 void updateGame(StateObject* s, char input, int w, int h);
+bool checkClear(const StateObject* state, int w, int h);
 
 int main(array<System::String ^> ^args)
 {
@@ -49,12 +50,17 @@ int main(array<System::String ^> ^args)
 
 	while (true) {
 		draw(state, gStateWidth, gStateHeight);
+		if(checkClear(state, gStateWidth, gStateHeight)) {
+			break;
+		}
 		input = getInput();
 		updateGame(state, input, gStateWidth, gStateHeight);
 	}
 
 	delete[] state;
 	state = 0;
+
+	Console::WriteLine(L"Clear!!");
 
     return 0;
 }
@@ -122,6 +128,16 @@ void updateGame(StateObject* s, char input, int w, int h)
 			s[p] = (s[p] == OBJ_MAN_ON_GOAL) ? OBJ_GOAL : OBJ_SPACE;
 		}
 	}
+}
+
+bool checkClear(const StateObject* state, int w, int h)
+{
+	for(int i = 0; i < w*h; ++i) {
+		if(state[i] == OBJ_BLOCK) {
+			return false;
+		}
+	}
+	return true;
 }
 
 void draw(const StateObject* state, int width, int height)
